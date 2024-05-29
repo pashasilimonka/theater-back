@@ -6,6 +6,7 @@ package edu.sylymonka.theater.model;/*
   @since 19.04.2024 - 12.23
 */
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,7 +16,11 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "actor")
+@Table(name = "actors")
+@Schema(
+        name = "Actor",
+        description = "Model for actors table"
+)
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

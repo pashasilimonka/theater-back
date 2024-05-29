@@ -16,9 +16,14 @@ import edu.sylymonka.theater.model.Role;
 import edu.sylymonka.theater.repository.ActorRepository;
 import edu.sylymonka.theater.repository.PlayRepository;
 import edu.sylymonka.theater.repository.RoleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
+import static edu.sylymonka.theater.utils.RoleUtils.validateInsertRequest;
+import static edu.sylymonka.theater.utils.RoleUtils.validateUpdateRequest;
 
 
 @Service
@@ -41,15 +46,24 @@ public class RoleService {
 
     public List<RoleDTO> getAllRoles(){
         List<Role> result = repository.findAll();
+        if(result.isEmpty()){
+            throw new EntityNotFoundException("No roles found");
+        }
         return result.stream().map(mapper::toDTO).toList();
     }
     public RoleDTO getRoleById(long id){
-        Role result = repository.getReferenceById(id);
-        return mapper.toDTO(result);
+        Optional<Role> result = repository.findById(id);
+        if (result.isPresent()){
+            return mapper.toDTO(result.get());
+        }else {
+            throw new EntityNotFoundException("No role with id "+id+" found");
+        }
+
     }
     public RoleDTO createRole(RoleInsertRequest request){
-        Actor actor = actorRepository.getReferenceById(request.getActor_id());
-        Play play = playRepository.getReferenceById(request.getPlay_id());
+        validateInsertRequest(request);
+        Actor actor = actorRepository.findById(request.getActor_id()).orElseThrow(EntityNotFoundException::new);
+        Play play = playRepository.findById(request.getPlay_id()).orElseThrow(EntityNotFoundException::new);
         Role role = mapper.toRole(request,actor,play);
         return mapper.toDTO(repository.save(role));
     }
@@ -57,8 +71,12 @@ public class RoleService {
         repository.deleteById(id);
     }
     public RoleDTO updateRole(RoleUpdateRequest request){
-        Actor actor = actorRepository.getReferenceById(request.getActor_id());
-        Play play = playRepository.getReferenceById(request.getPlay_id());
+        validateUpdateRequest(request);
+        if (!repository.existsById(request.getId())){
+            throw new EntityNotFoundException("No role with id "+request.getId()+" found");
+        }
+        Actor actor = actorRepository.findById(request.getActor_id()).orElseThrow(EntityNotFoundException::new);
+        Play play = playRepository.findById(request.getPlay_id()).orElseThrow(EntityNotFoundException::new);
         Role role = mapper.toRole(request,actor,play);
         return mapper.toDTO(repository.save(role));
     }

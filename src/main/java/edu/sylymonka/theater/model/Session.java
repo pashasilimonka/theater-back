@@ -9,30 +9,31 @@ package edu.sylymonka.theater.model;/*
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "session")
+@Table(name = "sessions")
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "session_id")
     private long id;
     private LocalDate dateOfSession;
-    private Time timeOfSession;
+    private LocalTime timeOfSession;
     @ManyToOne
     @JoinColumn(name = "play_id")
     private Play play;
 
     public Session(
             LocalDate dateOfSession,
-            Time timeOfSession,
+            LocalTime timeOfSession,
             Play play){
         this.dateOfSession=dateOfSession;
         this.timeOfSession=timeOfSession;

@@ -30,6 +30,6 @@ public class SessionMapper {
         return new Session(request.getDateOfSession(),request.getTimeOfSession(),play);
     }
     public Session toSession(SessionUpdateRequest request, Play play){
-        return new Session(request.getDateOfSession(),request.getTimeOfSession(),play);
+        return new Session(request.getId(),request.getDateOfSession(),request.getTimeOfSession(),play);
     }
 }

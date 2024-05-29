@@ -11,7 +11,6 @@ import edu.sylymonka.theater.dto.actor.ActorInsertRequest;
 import edu.sylymonka.theater.dto.actor.ActorUpdateRequest;
 import edu.sylymonka.theater.model.Actor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,8 +29,8 @@ public class ActorMapper {
     public Actor toActor(ActorInsertRequest request){
         return mapper.map(request, Actor.class);
     }
-    public Actor toActor(ActorUpdateRequest request){
-        return mapper.map(request, Actor.class);
+    public void toActor(ActorUpdateRequest request, Actor actor){
+         mapper.map(request, actor);
     }
 
 }
