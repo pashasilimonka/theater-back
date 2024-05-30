@@ -16,10 +16,8 @@ import lombok.Data;
         description = "DTO class of actor for roles table"
 )
 public class ActorForRole {
-    @JsonProperty("Actor ID")
     @Schema(name = "Actor ID", description = "Unique identificator for actor",example = "1")
     private long id;
-    @JsonProperty("Actor name")
     @Schema(name = "Actor name", description = "Name of actor", example = "John Doe")
     private String name;
 }

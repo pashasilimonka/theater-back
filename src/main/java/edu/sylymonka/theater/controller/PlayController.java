@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @Tag(name = "Play controller",
         description = "Controller with endpoints for CRUD operations with play table")

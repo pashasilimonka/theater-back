@@ -13,10 +13,8 @@ import lombok.Data;
 @Data
 @Schema(name = "Play for role", description = "DTO class of play for association with roles table")
 public class PlayForRole {
-    @JsonProperty("Play ID")
     @Schema(name = "Play ID", description = "Unique identificator", example = "1")
     private long id;
-    @JsonProperty("Title")
     @Schema(name = "Title", description = "Title of the play", example = "Romeo and Juliette")
     private String title;
 }
