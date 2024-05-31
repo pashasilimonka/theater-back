@@ -7,6 +7,7 @@ package edu.sylymonka.theater.mapper;/*
 */
 
 import edu.sylymonka.theater.dto.actor.ActorDTO;
+import edu.sylymonka.theater.dto.actor.ActorForRole;
 import edu.sylymonka.theater.dto.actor.ActorInsertRequest;
 import edu.sylymonka.theater.dto.actor.ActorUpdateRequest;
 import edu.sylymonka.theater.model.Actor;
@@ -31,6 +32,9 @@ public class ActorMapper {
     }
     public void toActor(ActorUpdateRequest request, Actor actor){
          mapper.map(request, actor);
+    }
+    public ActorForRole toActorForRole(Actor actor){
+        return mapper.map(actor,ActorForRole.class);
     }
 
 }

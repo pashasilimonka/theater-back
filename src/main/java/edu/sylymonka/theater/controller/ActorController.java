@@ -7,6 +7,7 @@ package edu.sylymonka.theater.controller;/*
 */
 
 import edu.sylymonka.theater.dto.actor.ActorDTO;
+import edu.sylymonka.theater.dto.actor.ActorForRole;
 import edu.sylymonka.theater.dto.actor.ActorInsertRequest;
 import edu.sylymonka.theater.dto.actor.ActorUpdateRequest;
 import edu.sylymonka.theater.service.ActorService;
@@ -40,6 +41,17 @@ public class ActorController {
             return ResponseEntity.notFound().build();
         }
         }
+    @Operation(summary = "Get all records of actors",
+    description = "Returns a list of all actors for actors list page")
+    @GetMapping("/all-list")
+    public ResponseEntity<List<ActorForRole>> getAllActorsList(){
+        try {
+            List<ActorForRole> result = actorService.getAllActorsForList();
+            return ResponseEntity.ok(result);
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+    }
     @Operation(summary = "Get 1 record of actor by id",
             description = "Returns 1 record from actors table by id")
     @GetMapping("/{id}")

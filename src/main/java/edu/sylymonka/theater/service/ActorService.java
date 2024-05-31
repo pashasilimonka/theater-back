@@ -7,6 +7,7 @@ package edu.sylymonka.theater.service;/*
 */
 
 import edu.sylymonka.theater.dto.actor.ActorDTO;
+import edu.sylymonka.theater.dto.actor.ActorForRole;
 import edu.sylymonka.theater.dto.actor.ActorInsertRequest;
 import edu.sylymonka.theater.dto.actor.ActorUpdateRequest;
 import edu.sylymonka.theater.mapper.ActorMapper;
@@ -38,6 +39,14 @@ public class ActorService {
             throw new EntityNotFoundException("No actors found");
         }
         return result.stream().map(mapper::toDTO).collect(Collectors.toList());
+    }
+
+    public List<ActorForRole> getAllActorsForList(){
+        List<Actor> result = repository.findAll();
+        if (result.isEmpty()){
+            throw new EntityNotFoundException("No actors found");
+        }
+        return result.stream().map(mapper::toActorForRole).toList();
     }
     public ActorDTO getActorById(long id){
         Optional<Actor> actorOpt = repository.findById(id);
