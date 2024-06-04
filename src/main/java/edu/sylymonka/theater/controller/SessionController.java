@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
+
 @RestController
 @Tag(name = "Session controller",
         description = "Controller with endpoints for CRUD operations with sessions table")
